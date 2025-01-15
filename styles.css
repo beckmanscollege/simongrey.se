@@ -1,0 +1,407 @@
+/* Animated gradient background */
+body {
+  font-family: helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #ffffff; /* Start with white */
+  animation: gradientAnimation 5s linear infinite; /* Apply animation */
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+
+/* Keyframes for the specific timing */
+@keyframes gradientAnimation {
+  0% {
+    background: #ffffff; /* Start white */
+  }
+  40% {
+    background: #ffffff; /* Stay white */
+  }
+  45% {
+    background: #000000; /* Quickly transition to black */
+  }
+  85% {
+    background: #000000; /* Stay black */
+  }
+  90% {
+    background: #ffffff; /* Quickly transition back to white */
+  }
+  100% {
+    background: #ffffff; /* End on white */
+  }
+}
+/* Header Styles */
+header {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  /* Centers the text horizontally */
+  align-items: center;
+  /* Centers the text vertically */
+  text-align: center;
+  padding: 4vh 4vw;
+  /* Adjust the padding for spacing */
+  font-size: clamp(4vw, 6vw, 8vw);
+  /* Font size scales with the width of the viewport */
+  white-space: nowrap;
+  /* Prevents the text from wrapping into multiple lines */
+  width: 100%;
+  /* Ensures header takes full width */
+  box-sizing: border-box;
+  /* Includes padding in the height calculation */
+}
+header h1 {
+  margin: 0;
+  transform: scaleY(2);
+  font-weight: bold;
+  font-size: inherit;
+  white-space: nowrap;
+  animation: simpleFlicker .5s 10; /* Add flicker animation */
+}
+
+/* Simple Flickering Animation */
+@keyframes simpleFlicker {
+  0%, 50%, 100% {
+    opacity: 1; /* Fully visible */
+  }
+  25%, 75% {
+    opacity: 0; /* Invisible */
+  }
+}
+/* Media query for small devices */
+@media (max-width: 768px) {
+  header {
+    padding: 4vh 4vw;
+    /* Adjust padding for smaller screens */
+  }
+
+  /* Grid Styles */
+  .grid-container {
+    width: 90%;
+    /* Ensure the grid takes up most of the screen */
+    max-width: none;
+    /* Remove the max-width to allow full screen usage */
+    padding: 10px;
+  }
+
+  /* Grid Item Styles */
+  .grid-item {
+    height: 200px;
+    /* Reduce height of grid items on smaller screens */
+  }
+
+  /* Navigation buttons (adjust size for smaller screens) */
+  .prev,
+  .next {
+    padding: 4vw;
+    /* Use a larger relative size */
+    width: 8vw;
+    height: 8vw;
+    font-size: 5vw;
+    /* Increase the font size of the arrows */
+  }
+}
+
+/* Media query for very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  header {
+    font-size: 10vw;
+    /* Increase font size further for very small screens */
+    padding: 10vh 5px;
+    /* Adjust header padding */
+  }
+
+  .grid-container {
+    width: 100%;
+    /* Full width of the screen */
+    padding: 5px;
+    /* Smaller padding */
+  }
+
+  /* Grid Item Styles */
+  .grid-item {
+    height: 150px;
+    /* Further reduce grid item height */
+  }
+
+  .prev,
+  .next {
+    padding: 5vw;
+    /* Increase the size of buttons for smaller screens */
+    width: 10vw;
+    height: 10vw;
+    font-size: 6vw;
+  }
+}
+
+/* Grid Styles */
+.grid-container {
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr;
+  /* 1 column */
+  grid-template-rows: auto;
+  /* Rows will auto-adjust based on content */
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  /* Ensure the grid takes the full width */
+  max-width: 800px;
+  /* Limit the width */
+  box-sizing: border-box;
+  margin: 0 auto;
+  /* Center the grid */
+}
+
+/* Grid Item Styles */
+.grid-item {
+  background-color: blue;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+  aspect-ratio: 1 / 1;
+  /* Makes each grid item a square */
+  padding: 10px;
+  box-sizing: border-box;
+  height: 30vh;
+  width: 100%;
+}
+
+/* Hover Effect with Gradient */
+.grid-item:hover {
+  background-color: #1797f9;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Carousel Wrapper */
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Set a specific height for the carousel */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Carousel Styles */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Carousel Images */
+.carousel img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Active Image */
+.carousel img.active {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Button Styles */
+.grid-item-wrapper {
+  display: inline-block;
+  position: relative;
+  /* Ensures buttons are positioned relative to this container */
+}
+
+/* Navigation Buttons */
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 2vw;
+  /* Use viewport width for padding */
+  cursor: pointer;
+  z-index: 2;
+  border-radius: 50%;
+  width: 5vw;
+  /* Width relative to viewport width */
+  height: 5vw;
+  /* Height relative to viewport width */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3vw;
+  /* Font size relative to viewport width */
+}
+
+/* Left button */
+.prev {
+  left: -10vw;
+  /* Move button slightly outside the left edge */
+}
+
+/* Right button */
+.next {
+  right: -10vw;
+  /* Move button slightly outside the right edge */
+}
+
+/* Media query for small devices */
+@media (max-width: 768px) {
+  .grid-container {
+    width: 90%;
+    /* Ensure the grid takes up most of the screen */
+    max-width: none;
+    /* Remove the max-width to allow full screen usage */
+    padding: 10px;
+  }
+
+  /* Grid Item Styles */
+  .grid-item {
+    height: 250px;
+    /* Reduce height for smaller screens */
+  }
+
+  .prev,
+  .next {
+    padding: 4vw;
+    /* Adjust size for smaller screens */
+    width: 8vw;
+    height: 8vw;
+    font-size: 5vw;
+  }
+}
+
+/* Media query for very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .grid-container {
+    width: 100%;
+    /* Full width of the screen */
+    padding: 5px;
+    /* Smaller padding */
+  }
+
+  /* Grid Item Styles */
+  .grid-item {
+    height: 150px;
+    /* Further reduce grid item height */
+  }
+
+  .prev,
+  .next {
+    padding: 5vw;
+    /* Increase the size of buttons for smaller screens */
+    width: 10vw;
+    height: 10vw;
+    font-size: 6vw;
+  }
+}
+.randomize-btn {
+  position: fixed;
+  top: 50%;
+  left: 10%;
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  visibility: hidden;  /* Initially hidden */
+  opacity: 0; /* Initially invisible */
+  transition: opacity 1s ease-in-out; /* Smooth fade-in/out */
+}
+.randomize-btn:hover {
+  background-color: #000000;
+  color: white;
+  transform: scale(1.1) ;
+}
+/* Media query for smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .randomize-btn {
+    padding: 0.4rem 1rem; /* Smaller padding for smaller screens */
+    font-size: 0.9rem; /* Smaller font size */
+    left: 3%; /* Position from the left */
+    top: 55%; /* Move it down by 10px from the middle */
+  }
+}
+
+/* Media query for very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .randomize-btn {
+    padding: 0.3rem 0.8rem; /* Even smaller padding for very small screens */
+    font-size: 0.8rem; /* Even smaller font size */
+    left: 3%; /* Keep at 5% from the left */
+    top: 55%; /* Move it down by 10px from the middle */
+  }
+}
+.randomize-btn-right {
+  position: fixed;
+  top: 50%;
+  right: 10%; /* Positioned on the right */
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  visibility: hidden; /* Initially hidden */
+  opacity: 0; /* Initially invisible */
+  transition: opacity 1s ease-in-out; /* Smooth fade-in/out */
+}
+
+.randomize-btn-right:hover {
+  background-color: #000000;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Media query for smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .randomize-btn-right {
+    padding: 0.4rem 1rem; /* Smaller padding for smaller screens */
+    font-size: 0.9rem; /* Smaller font size */
+    right: 3%; /* Adjust right position */
+    top: 55%; /* Adjust top position */
+  }
+}
+
+/* Media query for very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .randomize-btn-right {
+    padding: 0.3rem 0.8rem; /* Even smaller padding */
+    font-size: 0.8rem; /* Even smaller font size */
+    right: 3%; /* Keep at 5% from the right */
+    top: 55%; /* Adjust top position */
+  }
+}
